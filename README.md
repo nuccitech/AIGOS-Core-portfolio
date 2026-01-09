@@ -69,7 +69,7 @@ Response (plan + drafts + trace)
 
 ## Module Responsibilities
 
-- `webapp/routes`: HTTP API boundaries and request validation
+- `webapp/routes`: Request handlers delegate responsibility to service-layer components, keeping business logic isolated and testable
 - `webapp/services`: Business-facing services (content, analytics, policy, storage)
 - `webapp/workflows`: Orchestration of multi-step processes
 - `webapp/integrations`: External provider interfaces (mocked)
