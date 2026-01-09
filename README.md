@@ -125,3 +125,7 @@ In production, mocked services would be replaced by:
 - Deployment workflows and operational runbooks
 
 See `DISCLAIMER.md` for additional details.
+
+## Portfolio Notes
+
+This repository is intentionally curated for public review. It emphasizes architecture, testability, and clean boundaries while keeping all implementations mock-only and non-proprietary.
