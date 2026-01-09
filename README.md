@@ -53,7 +53,11 @@ Response (plan + drafts + trace)
 
 ```bash
 python -m venv .venv
-.\.venv\Scripts\activate
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+# macOS/Linux
+source .venv/bin/activate
+
 pip install -r requirements.txt
 python app.py
 ```
