@@ -1,0 +1,9 @@
+{
+  "audience": "product leaders at SaaS startups",
+  "channel_mix": ["linkedin", "email"],
+  "goal": "drive demo requests",
+  "tone": "direct and value-focused",
+  "constraints": {
+    "max_words": 120
+  }
+}
