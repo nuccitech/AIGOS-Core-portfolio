@@ -78,6 +78,14 @@ Response (plan + drafts + trace)
 - `webapp/domain`: Interfaces, validators, and pipeline primitives
 - `webapp/container.py`: Dependency injection for provider wiring
 
+## Design Principles
+
+- Clear separation between orchestration and execution
+- Explicit data flow through each stage of a workflow
+- Minimized coupling between services
+- Predictable, testable behavior
+- Designed for extension rather than modification
+
 ## Running Locally (Mocked Only)
 
 ```bash
