@@ -4,6 +4,8 @@
 
 This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
 
+See `PORTFOLIO_SCOPE.md` for scope details.
+
 ## What This Repository Represents
 
 This repository is a **portfolio-safe core implementation** inspired by a larger production system (AIGOS).
