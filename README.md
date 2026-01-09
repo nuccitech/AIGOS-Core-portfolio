@@ -4,6 +4,18 @@
 
 This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
 
+## What This Repository Represents
+
+This repository is a **portfolio-safe core implementation** inspired by a larger production system (AIGOS).
+
+It demonstrates:
+- Service-layer architecture
+- Workflow-driven AI processing
+- Clear separation of concerns
+- Extensible, modular design
+
+Certain production concerns (multi-tenancy, background workers, vendor integrations, security hardening) are intentionally omitted or simplified.
+
 ## Quick Demo
 
 ```bash
@@ -11,6 +23,13 @@ curl -X POST http://127.0.0.1:5000/api/workflows/campaign \
   -H "Content-Type: application/json" \
   -d @webapp/utils/mock_data.json
 ```
+
+## Portfolio Highlights
+
+- Clean architecture with explicit domain + pipeline stages
+- Dependency injection for provider wiring and testability
+- Mocked policy guardrails and analytics to show production shape
+- Lightweight tests covering workflow and API boundaries
 
 ## Problem Aigos Solves
 
