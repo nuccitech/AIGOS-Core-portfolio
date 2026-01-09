@@ -133,6 +133,17 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
+## Production Considerations (High-Level)
+
+In a full production environment, this system would typically include:
+- Tenant-aware request handling and data isolation
+- Background task execution for long-running jobs
+- Environment-based configuration
+- Structured health and diagnostics endpoints
+- Automated testing and CI checks
+
+These elements are outside the scope of this portfolio repository but inform its structure.
+
 ## Extending This in Production
 
 In production, mocked services would be replaced by:
