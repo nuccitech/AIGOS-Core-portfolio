@@ -1,6 +1,16 @@
 # Aigos Core (Portfolio)
 
+![Quick demo output (mocked)](assets/quick-demo.svg)
+
 This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
+
+## Quick Demo
+
+```bash
+curl -X POST http://127.0.0.1:5000/api/workflows/campaign \
+  -H "Content-Type: application/json" \
+  -d @webapp/utils/mock_data.json
+```
 
 ## Problem Aigos Solves
 
@@ -60,14 +70,6 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 python app.py
-```
-
-Example request:
-
-```bash
-curl -X POST http://127.0.0.1:5000/api/workflows/campaign \
-  -H "Content-Type: application/json" \
-  -d @webapp/utils/mock_data.json
 ```
 
 Example response (truncated):

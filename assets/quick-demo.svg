@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380">
+  <rect width="960" height="380" rx="12" fill="#0b0f14"/>
+  <rect x="20" y="20" width="920" height="340" rx="10" fill="#0f1720" stroke="#1f2a36" />
+  <text x="40" y="55" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#9adf8f">
+    $ curl -X POST http://127.0.0.1:5000/api/workflows/campaign -H "Content-Type: application/json"
+  </text>
+  <text x="40" y="80" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#9adf8f">
+    -d @webapp/utils/mock_data.json
+  </text>
+  <text x="40" y="120" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    {
+  </text>
+  <text x="60" y="145" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "plan": {"summary": "Portfolio mock plan...", "channels": ["linkedin", "email"]},
+  </text>
+  <text x="60" y="170" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "drafts": [{"channel": "linkedin", "title": "Launch teaser"...}],
+  </text>
+  <text x="60" y="195" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "insights": {"audience_fit": "high", "channel_priority": "linkedin-first"},
+  </text>
+  <text x="60" y="220" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "policy": {"status": "approved", "reason": "portfolio-safe policy evaluation"},
+  </text>
+  <text x="60" y="245" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "trace": ["stage:validate-request", "stage:plan", "stage:draft", "..."]
+  </text>
+  <text x="40" y="270" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    }
+  </text>
+  <text x="40" y="315" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#7c8b99">
+    Output is mocked for portfolio use.
+  </text>
+</svg>
