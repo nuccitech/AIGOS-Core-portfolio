@@ -1,26 +1,44 @@
 from dataclasses import asdict
 from typing import Dict
 
+from webapp.domain.pipeline import Pipeline, PipelineContext
 from webapp.models.schema import CampaignRequest
+from webapp.services.analytics_service import AnalyticsService
 from webapp.services.content_service import ContentService
 from webapp.services.storage_service import MockStorageService
+from webapp.workflows.stages import (
+    DraftStage,
+    InsightsStage,
+    PersistStage,
+    PlanStage,
+    ValidateStage,
+)
 
 
 class CampaignWorkflow:
-    def __init__(self):
-        self.content_service = ContentService()
-        self.storage = MockStorageService()
+    def __init__(self, enable_insights: bool = True, enable_persistence: bool = True):
+        content_service = ContentService()
+        analytics_service = AnalyticsService()
+        storage_service = MockStorageService()
+        stages = [
+            ValidateStage(),
+            PlanStage(content_service),
+            DraftStage(content_service),
+        ]
+        if enable_insights:
+            stages.append(InsightsStage(analytics_service))
+        if enable_persistence:
+            stages.append(PersistStage(storage_service))
+        self.pipeline = Pipeline(stages)
 
     def run(self, request: CampaignRequest) -> Dict[str, object]:
-        plan = self.content_service.build_plan(request)
-        drafts_bundle = self.content_service.generate_drafts(request)
-        draft_payload = [asdict(draft) for draft in drafts_bundle["drafts"]]
-        storage_result = self.storage.save(
-            {"plan": asdict(plan), "drafts": draft_payload}
-        )
+        context = PipelineContext(request=request)
+        self.pipeline.run(context)
+        draft_payload = [asdict(draft) for draft in context.drafts]
         return {
-            "plan": asdict(plan),
+            "plan": asdict(context.plan) if context.plan else {},
             "drafts": draft_payload,
-            "prompt_example": drafts_bundle["prompt"],
-            "storage": storage_result,
+            "insights": context.insights,
+            "prompt_example": context.prompt_example,
+            "trace": context.trace,
         }

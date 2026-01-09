@@ -23,6 +23,21 @@ Outputs
 - Draft content objects
 - Audit-ready trace of decisions (mocked metadata)
 
+High-level flow (portfolio-safe):
+
+```
+Client Request
+   ↓
+Routes (validation + request shaping)
+   ↓
+Workflow Orchestrator
+   ↓
+Pipeline Stages
+  - Validate → Plan → Draft → Insights → Persist
+   ↓
+Response (plan + drafts + trace)
+```
+
 ## Module Responsibilities
 
 - `webapp/routes`: HTTP API boundaries and request validation
@@ -31,6 +46,7 @@ Outputs
 - `webapp/integrations`: External provider interfaces (mocked)
 - `webapp/models`: Data schemas
 - `webapp/prompts`: Example prompts (non-production)
+- `webapp/domain`: Interfaces, validators, and pipeline primitives
 
 ## Running Locally (Mocked Only)
 
@@ -62,9 +78,25 @@ Example response (truncated):
     {"channel": "linkedin", "title": "Launch teaser", "body": "Example output: Draft a short LinkedIn post introducing a new product."},
     {"channel": "email", "title": "Customer follow-up", "body": "Example output: Draft a follow-up email summarizing benefits."}
   ],
+  "insights": {"audience_fit": "high", "channel_priority": "linkedin-first", "risk_flag": "none"},
   "prompt_example": "Example prompt (portfolio-safe): Generate a concise campaign outline for product leaders at SaaS startups across linkedin, email with the goal of drive demo requests and tone direct and value-focused.",
-  "storage": {"storage_id": 1, "status": "stored-mock"}
+  "trace": ["stage:validate-request", "stage:plan", "stage:draft", "prompt-example:stored", "stage:insights", "stage:persist", "storage:stored-mock"]
 }
+```
+
+## Feature Flags (Mocked)
+
+The portfolio version uses simple feature flags to show optional stages:
+- `ENABLE_INSIGHTS`
+- `ENABLE_PERSISTENCE`
+
+See `webapp/config/feature_flags.py` for defaults.
+
+## Testing
+
+```bash
+pip install -r requirements-dev.txt
+pytest
 ```
 
 ## Extending This in Production

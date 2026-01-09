@@ -25,7 +25,7 @@ class ContentService:
             key_messages=key_messages,
         )
 
-    def generate_drafts(self, request: CampaignRequest) -> Dict[str, List[DraftContent]]:
+    def generate_drafts(self, request: CampaignRequest) -> Dict[str, object]:
         prompt = CAMPAIGN_PROMPT_EXAMPLE.format(
             audience=request.audience,
             channels=", ".join(request.channel_mix),

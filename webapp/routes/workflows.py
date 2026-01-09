@@ -12,5 +12,8 @@ def run_campaign_workflow():
     payload = request.get_json(silent=True) or {}
     campaign_request = CampaignRequest.from_dict(payload)
     orchestrator = WorkflowOrchestrator()
-    result = orchestrator.run_campaign(campaign_request)
+    try:
+        result = orchestrator.run_campaign(campaign_request)
+    except ValueError as exc:
+        return jsonify({"error": "validation_failed", "details": exc.args[0]}), 400
     return jsonify(result)
