@@ -1,12 +1,12 @@
 # Aigos Core (Portfolio)
 
-This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes → services → workflows → integrations → models) while replacing proprietary logic with clearly labeled mock implementations.
+This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
 
 ## Problem Aigos Solves
 
 Aigos automates multi-channel content planning and publishing for small teams. It turns a campaign brief into a structured plan, drafts, and scheduling artifacts while maintaining quality controls and analytics feedback loops.
 
-## System Architecture (Inputs → Processing → Outputs)
+## System Architecture (Inputs -> Processing -> Outputs)
 
 Inputs
 - Campaign brief (audience, channel mix, goals, tone)
@@ -27,26 +27,27 @@ High-level flow (portfolio-safe):
 
 ```
 Client Request
-   ↓
+   |
 Routes (validation + request shaping)
-   ↓
+   |
 Workflow Orchestrator
-   ↓
+   |
 Pipeline Stages
-  - Validate → Plan → Draft → Insights → Persist
-   ↓
+  - Validate -> Plan -> Draft -> Policy -> Insights -> Persist
+   |
 Response (plan + drafts + trace)
 ```
 
 ## Module Responsibilities
 
 - `webapp/routes`: HTTP API boundaries and request validation
-- `webapp/services`: Business-facing services (content, analytics, storage)
+- `webapp/services`: Business-facing services (content, analytics, policy, storage)
 - `webapp/workflows`: Orchestration of multi-step processes
 - `webapp/integrations`: External provider interfaces (mocked)
 - `webapp/models`: Data schemas
 - `webapp/prompts`: Example prompts (non-production)
 - `webapp/domain`: Interfaces, validators, and pipeline primitives
+- `webapp/container.py`: Dependency injection for provider wiring
 
 ## Running Locally (Mocked Only)
 
@@ -79,8 +80,9 @@ Example response (truncated):
     {"channel": "email", "title": "Customer follow-up", "body": "Example output: Draft a follow-up email summarizing benefits."}
   ],
   "insights": {"audience_fit": "high", "channel_priority": "linkedin-first", "risk_flag": "none"},
+  "policy": {"status": "approved", "reason": "portfolio-safe policy evaluation (mocked)"},
   "prompt_example": "Example prompt (portfolio-safe): Generate a concise campaign outline for product leaders at SaaS startups across linkedin, email with the goal of drive demo requests and tone direct and value-focused.",
-  "trace": ["stage:validate-request", "stage:plan", "stage:draft", "prompt-example:stored", "stage:insights", "stage:persist", "storage:stored-mock"]
+  "trace": ["stage:validate-request", "stage:plan", "stage:draft", "prompt-example:stored", "stage:policy", "stage:insights", "stage:persist", "storage:stored-mock"]
 }
 ```
 
@@ -91,6 +93,13 @@ The portfolio version uses simple feature flags to show optional stages:
 - `ENABLE_PERSISTENCE`
 
 See `webapp/config/feature_flags.py` for defaults.
+
+## API Surface
+
+- `GET /api/health` -> health check
+- `GET /api/insights/overview` -> mocked analytics overview
+- `GET /api/docs` -> portfolio-safe API listing
+- `POST /api/workflows/campaign` -> run mocked workflow
 
 ## Testing
 

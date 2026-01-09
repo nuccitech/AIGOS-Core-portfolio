@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
 from webapp.models.schema import CampaignPlan, CampaignRequest, DraftContent
+from webapp.domain.policies import PolicyDecision
 
 
 @dataclass
@@ -11,6 +12,7 @@ class PipelineContext:
     drafts: List[DraftContent] = field(default_factory=list)
     insights: Dict[str, str] = field(default_factory=dict)
     prompt_example: Optional[str] = None
+    policy: Optional[PolicyDecision] = None
     trace: List[str] = field(default_factory=list)
 
 

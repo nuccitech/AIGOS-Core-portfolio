@@ -15,5 +15,6 @@ def test_campaign_workflow_returns_expected_keys():
     assert "plan" in result
     assert "drafts" in result
     assert "insights" in result
+    assert "policy" in result
     assert "prompt_example" in result
     assert "trace" in result

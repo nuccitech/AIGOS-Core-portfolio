@@ -2,9 +2,11 @@ from dataclasses import asdict
 from typing import Dict
 
 from webapp.domain.pipeline import PipelineContext, PipelineStage
+from webapp.domain.policies import PolicyDecision
 from webapp.domain.validators import validate_campaign_request
 from webapp.services.analytics_service import AnalyticsService
 from webapp.services.content_service import ContentService
+from webapp.services.policy_service import PolicyService
 from webapp.services.storage_service import MockStorageService
 
 
@@ -38,6 +40,17 @@ class DraftStage(PipelineStage):
         context.drafts = drafts_bundle["drafts"]
         context.prompt_example = drafts_bundle["prompt"]
         context.trace.append("prompt-example:stored")
+
+
+class PolicyStage(PipelineStage):
+    name = "policy"
+
+    def __init__(self, policy_service: PolicyService):
+        self.policy_service = policy_service
+
+    def run(self, context: PipelineContext) -> None:
+        decision = self.policy_service.evaluate(context.request)
+        context.policy = PolicyDecision.from_dict(decision)
 
 
 class InsightsStage(PipelineStage):

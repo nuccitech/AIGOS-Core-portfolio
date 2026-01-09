@@ -3,32 +3,34 @@ from typing import Dict
 
 from webapp.domain.pipeline import Pipeline, PipelineContext
 from webapp.models.schema import CampaignRequest
-from webapp.services.analytics_service import AnalyticsService
-from webapp.services.content_service import ContentService
-from webapp.services.storage_service import MockStorageService
+from webapp.container import ServiceContainer
 from webapp.workflows.stages import (
     DraftStage,
     InsightsStage,
     PersistStage,
     PlanStage,
+    PolicyStage,
     ValidateStage,
 )
 
 
 class CampaignWorkflow:
-    def __init__(self, enable_insights: bool = True, enable_persistence: bool = True):
-        content_service = ContentService()
-        analytics_service = AnalyticsService()
-        storage_service = MockStorageService()
+    def __init__(
+        self,
+        container: ServiceContainer,
+        enable_insights: bool = True,
+        enable_persistence: bool = True,
+    ):
         stages = [
             ValidateStage(),
-            PlanStage(content_service),
-            DraftStage(content_service),
+            PlanStage(container.content),
+            DraftStage(container.content),
+            PolicyStage(container.policy),
         ]
         if enable_insights:
-            stages.append(InsightsStage(analytics_service))
+            stages.append(InsightsStage(container.analytics))
         if enable_persistence:
-            stages.append(PersistStage(storage_service))
+            stages.append(PersistStage(container.storage))
         self.pipeline = Pipeline(stages)
 
     def run(self, request: CampaignRequest) -> Dict[str, object]:
@@ -40,5 +42,6 @@ class CampaignWorkflow:
             "drafts": draft_payload,
             "insights": context.insights,
             "prompt_example": context.prompt_example,
+            "policy": asdict(context.policy) if context.policy else {},
             "trace": context.trace,
         }
