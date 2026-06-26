@@ -2,13 +2,28 @@
 
 ![Quick demo output (mocked)](assets/quick-demo.svg)
 
-This repository is a public, sanitized portfolio version of the Aigos system. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
+This repository is a public, sanitized portfolio version of the AIGOS platform. It preserves the architecture and boundaries (routes -> services -> workflows -> integrations -> models) while replacing proprietary logic with clearly labeled mock implementations.
 
 See `PORTFOLIO_SCOPE.md` for scope details.
 
+## The AIGOS Platform — Planet Hubs
+
+AIGOS is a multi-product growth platform. Each product is a self-contained **planet hub** that runs on a shared core (workflow orchestration, a service layer, injected AI providers, and shared policy + analytics). The runnable code in this repository is the **portfolio-safe core of ContentPilot**, used as the reference implementation for the whole platform.
+
+| Hub | Focus | Status |
+| --- | --- | --- |
+| [ContentPilot](docs/hubs/contentpilot.md) | AI-powered content creation & social media automation | Active |
+| [LeadEngine](docs/hubs/leadengine.md) | AI-powered lead discovery, outreach & proposals | Active |
+| [TradeHub](docs/hubs/tradehub.md) | CRM built for contractors & trade businesses | Active |
+| [AvatarStudio](docs/hubs/avatarstudio.md) | AI avatars, video generation & voice synthesis | Active |
+| [PlaybookOS](docs/hubs/playbookos.md) | Playbooks, LMS & marketplace for growth strategies | Active |
+| [AutoFlow](docs/hubs/autoflow.md) | Email automation, workflows & AI | Active |
+
+See [`docs/PLATFORM.md`](docs/PLATFORM.md) for the platform overview and how the hubs share a common foundation.
+
 ## What This Repository Represents
 
-This repository is a **portfolio-safe core implementation** inspired by a larger production system (AIGOS).
+This repository is a **portfolio-safe core implementation** of the AIGOS platform.
 
 It demonstrates:
 - Service-layer architecture
@@ -33,9 +48,15 @@ curl -X POST http://127.0.0.1:5000/api/workflows/campaign \
 - Mocked policy guardrails and analytics to show production shape
 - Lightweight tests covering workflow and API boundaries
 
-## Problem Aigos Solves
+## Problem AIGOS Solves
 
-Aigos automates multi-channel content planning and publishing for small teams. It turns a campaign brief into a structured plan, drafts, and scheduling artifacts while maintaining quality controls and analytics feedback loops.
+AIGOS gives small teams an integrated growth platform — content, lead generation, CRM, video,
+playbooks, and automation — built on one shared core (see [Planet Hubs](#the-aigos-platform--planet-hubs)).
+
+The slice demonstrated in this repository is **ContentPilot's core**: it automates multi-channel
+content planning and publishing, turning a campaign brief into a structured plan, drafts, and
+scheduling artifacts while maintaining quality controls and analytics feedback loops. The same
+orchestration, provider, and policy foundations power every other hub.
 
 ## System Architecture (Inputs -> Processing -> Outputs)
 
@@ -163,6 +184,13 @@ In production, mocked services would be replaced by:
 - Job queue for long-running workflows
 - Observability pipelines (metrics, tracing, alerting)
 - Policy enforcement for compliance and brand safety
+
+### Unified Content Generation Lambda
+A significant architectural achievement in the production system is the **Unified Content Generation Lambda**. Rather than making sequential calls to separate APIs for text and image generation, the system utilizes a custom AWS Lambda function that concurrently orchestrates Amazon Bedrock models (Gemma for marketing copy and Stable Diffusion 3.5 for imagery). 
+This unified approach:
+- Drastically reduces latency by parallelizing multimodal generation.
+- Minimizes cold starts compared to managing multiple discrete lambda functions.
+- Centralizes content policy enforcement and error handling within a single secure execution context.
 
 ## What Is Intentionally Omitted
 

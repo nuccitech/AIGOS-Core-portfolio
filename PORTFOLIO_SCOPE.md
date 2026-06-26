@@ -1,6 +1,8 @@
 # Portfolio Scope
 
-This repository is intentionally limited to demonstrate architecture and development approach.
+This repository is intentionally limited to demonstrate architecture and development approach. It
+ships the portfolio-safe core of the AIGOS platform; the full platform spans six products (see
+[`docs/PLATFORM.md`](docs/PLATFORM.md)).
 
 Excluded:
 - Proprietary workflows

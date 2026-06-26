@@ -25,3 +25,16 @@ Thumbs.db
 # Data
 *.db
 *.sqlite3
+
+# Local / sensitive — NOT for the public showcase (under review)
+_review/
+lambdacode.txt
+integration format
+request format
+gate.png
+newimgser.png
+*credentials*.json
+
+# Local tooling & operational scripts (excluded per PORTFOLIO_SCOPE)
+.claude/
+scripts/
