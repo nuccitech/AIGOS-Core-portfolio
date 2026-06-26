@@ -151,6 +151,7 @@ In a full production environment, this system would typically include:
 - Environment-based configuration
 - Structured health and diagnostics endpoints
 - Automated testing and CI checks
+- Cloud-native deployment architecture (the production system recently migrated from Railway to AWS for improved scalability, S3 integrations, and Lambda-based serverless capabilities)
 
 These elements are outside the scope of this portfolio repository but inform its structure.
 
