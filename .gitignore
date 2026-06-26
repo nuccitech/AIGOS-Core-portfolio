@@ -38,3 +38,7 @@ newimgser.png
 # Local tooling & operational scripts (excluded per PORTFOLIO_SCOPE)
 .claude/
 scripts/
+
+# Handoff staging — private context docs, never committed
+port handoff/
+_handoff/

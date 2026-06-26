@@ -5,12 +5,14 @@ from webapp.models.schema import CampaignRequest
 
 def validate_campaign_request(request: CampaignRequest) -> List[str]:
     issues: List[str] = []
-    if not request.audience:
-        issues.append("Audience is required.")
-    if not request.channel_mix:
-        issues.append("At least one channel is required.")
-    if not request.goal:
-        issues.append("Goal is required.")
-    if not request.tone:
-        issues.append("Tone is required.")
+    if not request.topic:
+        issues.append("topic is required.")
+    if not request.niche:
+        issues.append("niche is required.")
+    if not request.industry:
+        issues.append("industry is required.")
+    if not request.target_platforms:
+        issues.append("At least one target_platform is required.")
+    if request.total_posts < 1:
+        issues.append("total_posts must be at least 1.")
     return issues

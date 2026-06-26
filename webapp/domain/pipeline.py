@@ -1,18 +1,25 @@
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
-from webapp.models.schema import CampaignPlan, CampaignRequest, DraftContent
-from webapp.domain.policies import PolicyDecision
+from webapp.models.schema import CampaignRequest, Photo, PlatformRestriction, Post
 
 
 @dataclass
 class PipelineContext:
     request: CampaignRequest
-    plan: Optional[CampaignPlan] = None
-    drafts: List[DraftContent] = field(default_factory=list)
-    insights: Dict[str, str] = field(default_factory=dict)
-    prompt_example: Optional[str] = None
-    policy: Optional[PolicyDecision] = None
+    # stage: extract-urls
+    extracted_urls: List[str] = field(default_factory=list)
+    # stage: aggregate-research
+    research: Dict[str, Any] = field(default_factory=dict)
+    # stage: process-work-photos
+    enhanced_photos: List[Dict[str, Any]] = field(default_factory=list)
+    # stage: check-platform-restrictions
+    platform_restrictions: Optional[PlatformRestriction] = None
+    # stage: generate-hashtags
+    hashtags: str = ""
+    # stage: generate-posts
+    posts: List[Post] = field(default_factory=list)
+    failed_pieces: List[str] = field(default_factory=list)
     trace: List[str] = field(default_factory=list)
 
 

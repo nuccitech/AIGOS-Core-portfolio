@@ -1,15 +1,18 @@
 from dataclasses import asdict
 from typing import Dict
 
+from webapp.container import ServiceContainer
 from webapp.domain.pipeline import Pipeline, PipelineContext
 from webapp.models.schema import CampaignRequest
-from webapp.container import ServiceContainer
 from webapp.workflows.stages import (
-    DraftStage,
-    InsightsStage,
+    ApplyTemplateStage,
+    AggregateResearchStage,
+    CheckPlatformRestrictionsStage,
+    ExtractUrlsStage,
+    GenerateHashtagsStage,
+    GeneratePostsStage,
     PersistStage,
-    PlanStage,
-    PolicyStage,
+    ProcessPhotosStage,
     ValidateStage,
 )
 
@@ -18,17 +21,18 @@ class CampaignWorkflow:
     def __init__(
         self,
         container: ServiceContainer,
-        enable_insights: bool = True,
         enable_persistence: bool = True,
     ):
         stages = [
             ValidateStage(),
-            PlanStage(container.content),
-            DraftStage(container.content),
-            PolicyStage(container.policy),
+            ExtractUrlsStage(container.content),
+            AggregateResearchStage(container.content),
+            ApplyTemplateStage(container.content),
+            ProcessPhotosStage(container.content),
+            CheckPlatformRestrictionsStage(container.policy),
+            GenerateHashtagsStage(container.content),
+            GeneratePostsStage(container.content),
         ]
-        if enable_insights:
-            stages.append(InsightsStage(container.analytics))
         if enable_persistence:
             stages.append(PersistStage(container.storage))
         self.pipeline = Pipeline(stages)
@@ -36,12 +40,17 @@ class CampaignWorkflow:
     def run(self, request: CampaignRequest) -> Dict[str, object]:
         context = PipelineContext(request=request)
         self.pipeline.run(context)
-        draft_payload = [asdict(draft) for draft in context.drafts]
         return {
-            "plan": asdict(context.plan) if context.plan else {},
-            "drafts": draft_payload,
-            "insights": context.insights,
-            "prompt_example": context.prompt_example,
-            "policy": asdict(context.policy) if context.policy else {},
+            "platform_restrictions": (
+                asdict(context.platform_restrictions)
+                if context.platform_restrictions
+                else {}
+            ),
+            "hashtags": context.hashtags,
+            "posts": [asdict(p) for p in context.posts],
+            "research_summary": context.research.get("summary", ""),
+            "extracted_urls": context.extracted_urls,
+            "enhanced_photos": context.enhanced_photos,
+            "failed_pieces": context.failed_pieces,
             "trace": context.trace,
         }

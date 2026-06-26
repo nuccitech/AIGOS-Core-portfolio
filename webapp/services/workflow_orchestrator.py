@@ -11,7 +11,6 @@ class WorkflowOrchestrator:
         container = build_container()
         self.campaign_workflow = CampaignWorkflow(
             container=container,
-            enable_insights=FeatureFlags.ENABLE_INSIGHTS,
             enable_persistence=FeatureFlags.ENABLE_PERSISTENCE,
         )
 

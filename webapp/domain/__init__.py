@@ -1,19 +1,21 @@
 from webapp.domain.interfaces import (
-    AnalyticsProvider,
-    ContentGenerator,
+    LLMClient,
+    ResearchAggregatorProtocol,
     StorageProvider,
+    VisionServiceProtocol,
+    PhotoEnhancementProtocol,
 )
-from webapp.domain.policies import PolicyDecision
 from webapp.domain.pipeline import Pipeline, PipelineContext, PipelineStage
 from webapp.domain.validators import validate_campaign_request
 
 __all__ = [
-    "AnalyticsProvider",
-    "ContentGenerator",
+    "LLMClient",
+    "ResearchAggregatorProtocol",
+    "StorageProvider",
+    "VisionServiceProtocol",
+    "PhotoEnhancementProtocol",
     "Pipeline",
     "PipelineContext",
     "PipelineStage",
-    "PolicyDecision",
-    "StorageProvider",
     "validate_campaign_request",
 ]
