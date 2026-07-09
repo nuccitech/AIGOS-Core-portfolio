@@ -1,0 +1,13 @@
+{
+  "topic": "Winter plumbing maintenance tips",
+  "niche": "home-services",
+  "industry": "plumbing",
+  "research_sources": "Homeowners search for burst-pipe prevention every winter. Reference: https://example.com/winter-plumbing-guide and https://example.com/pipe-insulation.",
+  "target_platforms": ["instagram", "facebook", "linkedin"],
+  "total_posts": 3,
+  "template_id": 1,
+  "custom_data": {
+    "content_types": ["social", "email", "blog"],
+    "brand_voice": "friendly and practical"
+  }
+}

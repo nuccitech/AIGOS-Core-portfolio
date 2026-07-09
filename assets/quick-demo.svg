@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420">
+  <rect width="960" height="420" rx="12" fill="#0b0f14"/>
+  <rect x="20" y="20" width="920" height="380" rx="10" fill="#0f1720" stroke="#1f2a36" />
+  <text x="40" y="55" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#9adf8f">
+    $ curl -X POST http://127.0.0.1:5000/api/workflows/campaign -H "Content-Type: application/json"
+  </text>
+  <text x="40" y="80" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#9adf8f">
+    -d @webapp/utils/mock_data.json
+  </text>
+  <text x="40" y="120" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    {
+  </text>
+  <text x="60" y="145" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "extracted_urls": ["https://example.com/winter-plumbing-guide", "..."],
+  </text>
+  <text x="60" y="170" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "research_summary": "Topic: Winter plumbing maintenance tips. Industry: plumbing...",
+  </text>
+  <text x="60" y="195" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "hashtags": "#winterplumbingmaintenancetips #home-services #marketing ...",
+  </text>
+  <text x="60" y="220" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "posts": [{"platform": "instagram", "post_type": "social", "status": "draft"}, "..."],
+  </text>
+  <text x="60" y="245" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "platform_restrictions": {"allowed_platforms": ["instagram", "facebook", "linkedin"]},
+  </text>
+  <text x="60" y="270" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    "trace": ["stage:validate-request", "stage:extract-urls", ..., "stage:persist"]
+  </text>
+  <text x="40" y="295" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#c9d6e1">
+    }
+  </text>
+  <text x="40" y="345" font-family="Consolas, 'Courier New', monospace" font-size="13" fill="#7c8b99">
+    All providers are mocked; output is deterministic for portfolio use.
+  </text>
+</svg>
